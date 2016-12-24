@@ -1,0 +1,9 @@
+# ignore input file and output file
+*.csv
+
+# ignore input directory
+input/
+
+# ipynb checpoint
+.ipynb_checkpoints/
+
