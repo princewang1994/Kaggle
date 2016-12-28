@@ -3,22 +3,18 @@ import numpy as np
 import pandas as pd
 
 
-fopen = open('../dataset/digit/train.csv', 'r')
+fopen = open('../../input/digit/train.csv', 'r')
 train_df = pd.read_csv(fopen)
 fopen.close()
-fopen = open('../dataset/digit/test.csv', 'r')
+fopen = open('../../input/digit/test.csv', 'r')
 test_df = pd.read_csv(fopen)
 fopen.close() 
 
 train_label = train_df.label.values
 train_df.drop(['label'], inplace=True, axis=1)
 
-train_arr = train_df.values.astype(np.float32)
-train_arr /= 255
-
-test_arr = test_df.values.astype(np.float32) 
-test_arr /= 255.0
-
+train_arr = train_df.values.astype(np.float32) / 255.0
+test_arr = test_df.values.astype(np.float32) / 255.0
 
 from sklearn.preprocessing import label_binarize
 from sklearn.preprocessing import StandardScaler
@@ -28,7 +24,6 @@ X_train, X_test, y_train, y_test = train_test_split(train_arr, train_label, test
 n_sample = X_train.shape[0]
 y_train = label_binarize(y_train, range(10))
 y_test = label_binarize(y_test, range(10)) 
-
 
 def add_fc_layer(input, input_size, output_size, activation=None):
     input = tf.reshape(input, [-1, input_size]) 
